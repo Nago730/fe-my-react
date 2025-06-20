@@ -82,4 +82,10 @@ const getNaberTree = (vnode: VNode): Naber => {
 	return naberRoot;
 };
 
-export { getNaberRoot, getCurrentWorkingNaber, getNaberTree };
+export {
+	getNaberRoot,
+	getCurrentWorkingNaber,
+	getNaberTree,
+	createNaber,
+	buildNaberTree,
+};
