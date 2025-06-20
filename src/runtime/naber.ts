@@ -1,4 +1,5 @@
 import type { Naber, VNode } from '@src/types/base.types';
+import { getTag } from './tag';
 
 /**
  * 전역 naber 상태를 담는 객체입니다.
@@ -34,6 +35,7 @@ const getCurrentWorkingNaber = (): Naber | null =>
 const createNaber = (vnode: VNode): Naber => {
 	const { children, ...restProps } = vnode.props;
 	return {
+		tag: getTag(vnode.type),
 		type: vnode.type,
 		props: restProps,
 		children: [],

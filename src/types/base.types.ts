@@ -50,6 +50,7 @@ export interface Fiber {
 }
 
 export interface Naber {
+	tag: string;
 	type: string | Function | symbol;
 	props: VNodeProps;
 	children: Naber[];
