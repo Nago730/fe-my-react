@@ -58,11 +58,8 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 		parentNaber.children.push(naber);
 
 		if (typeof naber.type === 'function') {
-			const renderedVNode = (naber.type as Function)({
-				...naber.props,
-				children: naber.children,
-			});
-			const children = renderedVNode.props.children ?? [];
+			const newVNode = (naber.type as Function)(vnode.props);
+			const children = newVNode.props.children ?? [];
 			buildNaberTree(naber, children);
 		} else {
 			const children = vnode.props.children ?? [];
