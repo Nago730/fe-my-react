@@ -26,6 +26,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			// this makes @my-react/* point at your src folder
+			'@src': path.resolve(__dirname, '../src'),
 			'@my-react': path.resolve(__dirname, '../src'),
 		},
 	},
