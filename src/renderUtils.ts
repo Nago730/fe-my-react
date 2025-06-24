@@ -15,7 +15,7 @@ export function withNaberScope(
 	naber: Naber,
 	ComponentType: Function,
 	props: VNode['props'],
-): VNode {
+): VNode[] {
 	// 훅의 인덱스를 초기화합니다. (매 렌더링마다 훅의 순서가 동일해야 함)
 	naber.hookIndex = 0;
 
