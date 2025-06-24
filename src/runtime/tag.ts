@@ -1,4 +1,4 @@
-import { FRAGMENT, TEXT_ELEMENT } from '@src/core';
+import { FRAGMENT, TEXT_ELEMENT } from '../core';
 
 export const TAG = {
 	FunctionComponent: 'FunctionComponent',
