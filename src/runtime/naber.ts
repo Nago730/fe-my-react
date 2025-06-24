@@ -83,6 +83,7 @@ const getNaberTree = (vnode: VNode): Naber => {
 };
 
 export {
+	setCurrentlyRenderingNaber
 	getNaberRoot,
 	getCurrentWorkingNaber,
 	getNaberTree,
