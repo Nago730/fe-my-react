@@ -14,6 +14,9 @@ const naber = {
 	currentlyRenderingNaber: null as Naber | null,
 };
 
+const setCurrentlyRenderingNaber = (value: Naber | null) =>
+	(naber.currentlyRenderingNaber = value);
+
 /**
  * 루트 Naber 객체를 반환합니다.
  * @returns {Naber | null} 현재 저장된 루트 Naber 객체
@@ -79,4 +82,10 @@ const getNaberTree = (vnode: VNode): Naber => {
 	return naberRoot;
 };
 
-export { getNaberRoot, getCurrentWorkingNaber, getNaberTree };
+export {
+	getNaberRoot,
+	getCurrentWorkingNaber,
+	getNaberTree,
+	createNaber,
+	buildNaberTree,
+};
