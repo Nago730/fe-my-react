@@ -45,12 +45,8 @@ export function render(
 	container: Element,
 ): void {
 	rootElement = container;
-	const rootVNode =
-		typeof vnode.type === 'function'
-			? (vnode.type as Function)(vnode.props)
-			: vnode;
 
-	const naber = getNaberTree(rootVNode);
+	const naber = getNaberTree(vnode);
 
 	commit(naber, container);
 }
