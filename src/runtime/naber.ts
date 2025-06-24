@@ -1,3 +1,4 @@
+import { withNaberScope } from '@src/renderUtils';
 import type { Naber, VNode } from '@src/types/base.types';
 import { getTag } from './tag';
 
@@ -61,9 +62,12 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 		parentNaber.children.push(naber);
 
 		if (typeof naber.type === 'function') {
-			const newVNode = (naber.type as Function)(vnode.props);
-			const children = newVNode.props.children ?? [];
-			buildNaberTree(naber, children);
+			const newChildVNode: VNode = (naber.type as Function)(vnode.props);
+			const newChildNaber = createNaber(newChildVNode);
+			// 함수형 컴포넌트 호출 후 부모와 연결
+			parentNaber.children = [newChildNaber];
+			const children = newChildVNode.props.children ?? [];
+			buildNaberTree(newChildNaber, children);
 		} else {
 			const children = vnode.props.children ?? [];
 			buildNaberTree(naber, children);
@@ -78,7 +82,22 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
  */
 const getNaberTree = (vnode: VNode): Naber => {
 	const naberRoot: Naber = createNaber(vnode);
-	buildNaberTree(naberRoot, vnode.props.children);
+
+	if (typeof vnode.type !== 'function') {
+		buildNaberTree(naberRoot, vnode.props.children);
+		return naberRoot;
+	}
+
+	const newChildVNode: VNode = withNaberScope(
+		naberRoot,
+		naberRoot.type as Function,
+		vnode.props,
+	);
+	const newChildNaber: Naber = createNaber(newChildVNode);
+	naberRoot.children = [newChildNaber];
+	const children: VNode[] = newChildVNode.props.children || [];
+	buildNaberTree(naberRoot, children);
+
 	return naberRoot;
 };
 
