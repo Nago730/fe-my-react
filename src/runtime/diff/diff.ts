@@ -140,13 +140,17 @@ function HostElementDiff(prevNaber: Naber, nextVNode: VNode): Naber {
  */
 function createNewNaberTree(vnode: VNode): Naber {
 	const newNaber: Naber = createNaber(vnode);
-	let newNextVNodes: VNode[] = [];
+	let newNextVNode: VNode;
 
 	if (isFunctionType(newNaber.type))
-		newNextVNodes = [(newNaber.type as Function)(newNaber.props)];
-	else newNextVNodes = vnode.props.children;
+		newNextVNode = withNaberScope(
+			newNaber,
+			newNaber.type as Function,
+			vnode.props,
+		);
+	else newNextVNode = vnode.props.children;
 
-	buildNaberTree(newNaber, newNextVNodes);
+	buildNaberTree(newNaber, [newNextVNode]);
 
 	return newNaber;
 }
