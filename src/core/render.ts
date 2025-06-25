@@ -1,3 +1,4 @@
+import { withNaberScope } from '@src/renderUtils';
 import { diff } from '../runtime/diff';
 import { getNaberRoot, getNaberTree } from '../runtime/naber';
 import type {
@@ -52,14 +53,15 @@ export function render(
 }
 
 export function updateComponent(currentWorkingNaber: Naber) {
-	const {
-		props,
-		children: prevNabers,
-		type: FunctionComponent,
-	} = currentWorkingNaber;
-	const nextVNodes: VNode[] = (FunctionComponent as Function)(props);
+	const { props, children: prevNabers, type: FC } = currentWorkingNaber;
 
-	const newNextNabers: Naber[] = diff(prevNabers, nextVNodes);
+	const nextVNode: VNode = withNaberScope(
+		currentWorkingNaber,
+		FC as Function,
+		props,
+	);
+
+	const newNextNabers: Naber[] = diff(prevNabers, [nextVNode]);
 
 	currentWorkingNaber.children = newNextNabers;
 
