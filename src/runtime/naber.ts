@@ -64,7 +64,12 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 		parentNaber.children.push(naber);
 
 		if (typeof naber.type === 'function') {
-			const newChildVNode: VNode = (naber.type as Function)(vnode.props);
+			const newChildVNode: VNode = withNaberScope(
+				naber,
+				naber.type,
+				vnode.props,
+			);
+
 			const newChildNaber = createNaber(newChildVNode);
 			// 함수형 컴포넌트 호출 후 부모와 연결
 			parentNaber.children = [newChildNaber];
