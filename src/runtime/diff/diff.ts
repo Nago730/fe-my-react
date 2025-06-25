@@ -141,7 +141,7 @@ function createNewNaberTree(vnode: VNode): Naber {
 	let newNextVNodes: VNode[] = [];
 
 	if (isFunctionType(newNaber.type))
-		newNextVNodes = (newNaber.type as Function)(newNaber.props);
+		newNextVNodes = [(newNaber.type as Function)(newNaber.props)];
 	else newNextVNodes = vnode.props.children;
 
 	buildNaberTree(newNaber, newNextVNodes);
