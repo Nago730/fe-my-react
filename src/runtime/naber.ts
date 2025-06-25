@@ -59,6 +59,10 @@ const createNaber = (vnode: VNode): Naber => {
  */
 const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 	for (const vnode of vnodeChildren) {
+		// 조건부 렌더링 시 vnodeChildren에 [false]가 들어오면 vnode가 false가 됨
+		// vnode가 객체가 아니므로 createNaber 에러 발생
+		// false일 경우 return
+		if (!vnode) return;
 		const newNextNaber: Naber = createNaber(vnode);
 
 		parentNaber.children.push(newNextNaber);
