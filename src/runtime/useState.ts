@@ -12,6 +12,7 @@ export function useState<T>(initialValue: T): [T, (newValue: T) => void] {
 	const { memoizedState, hookIndex } = currentWorkingNaber;
 	const oldState = memoizedState[hookIndex];
 	const state: T = oldState === undefined ? initialValue : oldState;
+	memoizedState[hookIndex] = state;
 
 	const setState = (param: T) => {
 		if (typeof param === 'function') memoizedState[hookIndex] = param(state);
