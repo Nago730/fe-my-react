@@ -59,14 +59,14 @@ const createNaber = (vnode: VNode): Naber => {
  */
 const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 	for (const vnode of vnodeChildren) {
-		const naber: Naber = createNaber(vnode);
+		const newNextNaber: Naber = createNaber(vnode);
 
-		parentNaber.children.push(naber);
+		parentNaber.children.push(newNextNaber);
 
-		if (typeof naber.type === 'function') {
+		if (typeof newNextNaber.type === 'function') {
 			const newChildVNode: VNode = withNaberScope(
-				naber,
-				naber.type,
+				newNextNaber,
+				newNextNaber.type,
 				vnode.props,
 			);
 
@@ -77,7 +77,7 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 			buildNaberTree(newChildNaber, children);
 		} else {
 			const children = vnode.props.children ?? [];
-			buildNaberTree(naber, children);
+			buildNaberTree(newNextNaber, children);
 		}
 	}
 };
