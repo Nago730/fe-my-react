@@ -98,8 +98,8 @@ const getNaberTree = (vnode: VNode): Naber => {
 	);
 	const newChildNaber: Naber = createNaber(newChildVNode);
 	naberRoot.children = [newChildNaber];
-	const children: VNode = newChildVNode.props.children || [];
-	buildNaberTree(naberRoot, children);
+	const children: VNode[] = newChildVNode.props.children || [];
+	buildNaberTree(newChildNaber, children);
 
 	return naberRoot;
 };
