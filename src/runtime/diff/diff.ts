@@ -24,11 +24,13 @@ import type { NaberMap } from './diff.types';
  */
 export function diff(prevNabers: Naber[], nextVNodes: VNode[]): Naber[] {
 	const prevMap = buildPrevNaberMap(prevNabers);
+	// JSX에서 조건부 렌더링 시 값이 false인 경우가 생김. 필터링 로직으로 구분
+	const filteredNextVNodes = nextVNodes.filter((v) => typeof v === 'object');
 	const newNextNabers: Naber[] = [];
 
-	for (let i = 0; i < nextVNodes.length; i++) {
+	for (let i = 0; i < filteredNextVNodes.length; i++) {
 		const prev: Naber | undefined = prevNabers[i];
-		const next: VNode = nextVNodes[i];
+		const next: VNode = filteredNextVNodes[i];
 		const matchedByKey: Naber | null | undefined = next?.key
 			? prevMap.get(next.key)
 			: null;
