@@ -36,5 +36,15 @@ function InnerCounter() {
 }
 
 function Modal({ count }) {
-	return <div>{`모달 - 현재 카운트: ${count}`}</div>;
+	const [innerCount, setInnerCount] = useState(0);
+
+	const handleInnerCount = () => setInnerCount((prev) => prev + 1);
+
+	return (
+		<div>
+			<div>{`모달 외부 props 카운트: ${count}`}</div>
+			<button onclick={handleInnerCount}>모달 카운트 증가 버튼</button>
+			<div>{`모달 내부 카운트: ${innerCount}`}</div>
+		</div>
+	);
 }
