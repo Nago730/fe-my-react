@@ -79,9 +79,8 @@ function FunctionComponentDiff(prevNaber: Naber, nextVNode: VNode): Naber {
 	const newNextNaber: Naber = createNaber(nextVNode);
 	newNextNaber.memoizedState = prevNaber.memoizedState;
 
-	const newNextVNodes: VNode[] = (newNextNaber.type as Function)(
-		nextVNode.props,
-	);
+	const newNextVNodes: VNode[] =
+		(newNextNaber.type as Function)(nextVNode.props) || [];
 
 	const newNextNaberChildren: Naber[] = diff(prevNaber.children, newNextVNodes);
 	newNextNaber.children = newNextNaberChildren;
@@ -107,7 +106,7 @@ function FunctionComponentDiff(prevNaber: Naber, nextVNode: VNode): Naber {
  */
 function HostElementDiff(prevNaber: Naber, nextVNode: VNode): Naber {
 	const newNextNaber = createNaber(nextVNode);
-	const newNextVNodes = nextVNode.props.children;
+	const newNextVNodes = nextVNode.props.children || [];
 
 	const newNextNaberChildren = diff(prevNaber.children, newNextVNodes);
 	newNextNaber.children = newNextNaberChildren;
