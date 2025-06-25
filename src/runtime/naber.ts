@@ -72,7 +72,7 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 
 			const newChildNaber = createNaber(newChildVNode);
 			// 함수형 컴포넌트 호출 후 부모와 연결
-			parentNaber.children = [newChildNaber];
+			newNextNaber.children = [newChildNaber];
 			const children = newChildVNode.props.children ?? [];
 			buildNaberTree(newChildNaber, children);
 		} else {
