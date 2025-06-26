@@ -15,10 +15,10 @@ function App() {
 				부모 버튼
 			</button>
 			<button className='app-button secondary' onclick={handleModal}>
-				조건부렌더링 토글 버튼
+				모달 토글 버튼
 			</button>
 			<InnerCounter />
-			{open && <Modal />}
+			{open && <Modal onClose={handleModal} />}
 		</div>
 	);
 }
@@ -38,7 +38,7 @@ function InnerCounter() {
 	);
 }
 
-function Modal() {
+function Modal({ onClose }) {
 	const [innerCount, setInnerCount] = useState(0);
 
 	const handleInnerCount = () => setInnerCount((prev) => prev + 1);
@@ -47,10 +47,13 @@ function Modal() {
 		<>
 			<div className='modal-overlay'></div>
 			<div className='modal-container'>
-				<button className='modal-button' onclick={handleInnerCount}>
-					{'내부 카운트 버튼 - 언마운트 시 초기화'}
+				<button className='inner-button' onclick={handleInnerCount}>
+					{'카운트 증가 버튼'}
 				</button>
 				<div className='modal-content'>{`모달 내부 카운트: ${innerCount}`}</div>
+				<button className='modal-button' onclick={onClose}>
+					모달 닫기
+				</button>
 			</div>
 		</>
 	);
