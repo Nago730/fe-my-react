@@ -8,9 +8,7 @@
 		"skipLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@src/*": ["src/*"],
-			"@core/*": ["src/core/*"],
-			"@helpers/*": ["tests/helpers/*"]
+			"@src/*": ["src/*"]
 		},
 		"types": ["vitest", "node"]
 	},
