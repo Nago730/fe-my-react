@@ -1,6 +1,6 @@
 import { updateComponent } from '../core';
 import type { Naber } from '../types/base.types';
-import { getCurrentWorkingNaber } from './naber';
+import { getCurrentWorkingNaber } from './naberStore';
 
 export function useState<T>(initialValue: T): [T, (newValue: T) => void] {
 	const currentWorkingNaber: Naber | null = getCurrentWorkingNaber();

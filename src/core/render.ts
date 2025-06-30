@@ -1,6 +1,7 @@
 import { callFunctionComponent } from '@src/renderUtils';
+import { getRootNaber } from '@src/runtime/naberStore';
 import { diff } from '../runtime/diff';
-import { getNaberRoot, getNaberTree } from '../runtime/naber';
+import { getNaberTree } from '../runtime/naber';
 import type {
 	FragmentVNode,
 	Naber,
@@ -65,7 +66,7 @@ export function updateComponent(currentWorkingNaber: Naber) {
 
 	currentWorkingNaber.children = newNextNabers;
 
-	const rootNaber = getNaberRoot();
+	const rootNaber = getRootNaber();
 
 	if (!rootNaber) return console.error('rootNaber가 존재하지 않음');
 

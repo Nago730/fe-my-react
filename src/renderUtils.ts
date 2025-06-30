@@ -1,5 +1,4 @@
-import { setCurrentlyRenderingNaber } from './runtime/naber'; // 적절한 경로로 수정
-// renderUtils.ts (새로운 파일)
+import { setCurrentlyRenderingNaber } from './runtime/naberStore';
 import type { Naber, VNode } from './types/base.types'; // 적절한 경로로 수정
 
 /**

@@ -1,36 +1,6 @@
 import { callFunctionComponent } from '@src/renderUtils';
 import type { Naber, VNode } from '@src/types/base.types';
-
-/**
- * 전역 naber 상태를 담는 객체입니다.
- * - `naberRoot`: 루트 Naber 트리
- * - `currentlyRenderingNaber`: 현재 렌더링 중인 함수형 컴포넌트 Naber
- */
-const naberManager = {
-	/** 최상위 Naber 트리 객체 */
-	naberRoot: null as Naber | null,
-
-	/** 현재 렌더링 중인 함수형 컴포넌트의 Naber 객체 */
-	currentlyRenderingNaber: null as Naber | null,
-};
-
-const setNaberRoot = (naber: Naber) => (naberManager.naberRoot = naber);
-
-const setCurrentlyRenderingNaber = (value: Naber | null) =>
-	(naberManager.currentlyRenderingNaber = value);
-
-/**
- * 루트 Naber 객체를 반환합니다.
- * @returns {Naber | null} 현재 저장된 루트 Naber 객체
- */
-const getNaberRoot = (): Naber | null => naberManager.naberRoot;
-
-/**
- * 현재 렌더링 중인 함수형 컴포넌트의 Naber 객체를 반환합니다.
- * @returns {Naber | null} 현재 렌더링 중인 Naber 객체
- */
-const getCurrentWorkingNaber = (): Naber | null =>
-	naberManager.currentlyRenderingNaber;
+import { setRootNaber } from './naberStore';
 
 /**
  * 단일 VNode를 기반으로 Naber 객체를 생성합니다.
@@ -91,7 +61,7 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
  */
 const getNaberTree = (vnode: VNode): Naber => {
 	const naberRoot: Naber = createNaber(vnode);
-	setNaberRoot(naberRoot);
+	setRootNaber(naberRoot);
 
 	if (typeof vnode.type !== 'function') {
 		buildNaberTree(naberRoot, vnode.props.children);
@@ -111,11 +81,4 @@ const getNaberTree = (vnode: VNode): Naber => {
 	return naberRoot;
 };
 
-export {
-	setCurrentlyRenderingNaber,
-	getNaberRoot,
-	getCurrentWorkingNaber,
-	getNaberTree,
-	createNaber,
-	buildNaberTree,
-};
+export { getNaberTree, createNaber, buildNaberTree };
