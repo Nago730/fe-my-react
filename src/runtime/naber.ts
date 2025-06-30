@@ -1,4 +1,4 @@
-import { callFunctionComponent } from '@src/renderUtils';
+import { activateComponentScope } from '@src/renderUtils';
 import type { Naber, VNode } from '@src/types/base.types';
 import { setRootNaber } from './naberStore';
 
@@ -36,9 +36,8 @@ const buildNaberTree = (parentNaber: Naber, vnodeChildren: VNode[]): void => {
 		parentNaber.children.push(newNextNaber);
 
 		if (typeof newNextNaber.type === 'function') {
-			const newChildVNode: VNode = callFunctionComponent(
+			const newChildVNode: VNode = activateComponentScope(
 				newNextNaber,
-				newNextNaber.type,
 				vnode.props,
 			);
 
@@ -68,11 +67,7 @@ const getNaberTree = (vnode: VNode): Naber => {
 		return naberRoot;
 	}
 
-	const newChildVNode: VNode = callFunctionComponent(
-		naberRoot,
-		naberRoot.type as Function,
-		vnode.props,
-	);
+	const newChildVNode: VNode = activateComponentScope(naberRoot, vnode.props);
 	const newChildNaber: Naber = createNaber(newChildVNode);
 	naberRoot.children = [newChildNaber];
 	const children: VNode[] = newChildVNode.props.children || [];
