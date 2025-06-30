@@ -11,7 +11,7 @@ import type { Naber, VNode } from './types/base.types'; // 적절한 경로로 �
  * @param {VNode['props']} props - 함수형 컴포넌트에 전달될 props
  * @returns {VNode} 함수형 컴포넌트가 반환하는 VNode
  */
-export function withNaberScope(
+export function callFunctionComponent(
 	naber: Naber,
 	ComponentType: Function,
 	props: VNode['props'],

@@ -1,4 +1,4 @@
-import { withNaberScope } from '@src/renderUtils';
+import { callFunctionComponent } from '@src/renderUtils';
 import type { Naber, VNode } from '../../types/base.types';
 import { buildNaberTree, createNaber } from '../naber';
 import type { NaberMap } from './diff.types';
@@ -83,7 +83,7 @@ function FunctionComponentDiff(prevNaber: Naber, nextVNode: VNode): Naber {
 	newNextNaber.memoizedState = prevNaber.memoizedState;
 
 	const newNextVNode: VNode =
-		withNaberScope(
+		callFunctionComponent(
 			newNextNaber,
 			newNextNaber.type as Function,
 			nextVNode.props,
@@ -143,7 +143,7 @@ function createNewNaberTree(vnode: VNode): Naber {
 	let newNextVNode: VNode;
 
 	if (isFunctionType(newNaber.type))
-		newNextVNode = withNaberScope(
+		newNextVNode = callFunctionComponent(
 			newNaber,
 			newNaber.type as Function,
 			vnode.props,
