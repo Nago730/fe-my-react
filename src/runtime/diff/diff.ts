@@ -192,9 +192,7 @@ function isSameFunctionComponentType(
 	next: VNode,
 ): boolean {
 	return (
-		targetPrev !== null &&
-		isFunctionType(next.type) &&
-		targetPrev.type === next.type
+		!!targetPrev && isFunctionType(next.type) && targetPrev.type === next.type
 	);
 }
 
@@ -206,8 +204,6 @@ function isSameFunctionComponentType(
  */
 function isSameHostElementType(targetPrev: Naber | null, next: VNode): boolean {
 	return (
-		targetPrev !== null &&
-		!isFunctionType(next.type) &&
-		targetPrev.type === next.type
+		!!targetPrev && !isFunctionType(next.type) && targetPrev.type === next.type
 	);
 }
