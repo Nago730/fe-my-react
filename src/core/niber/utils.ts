@@ -1,5 +1,5 @@
-import { setCurrentlyRenderingNaber } from './runtime/naberStore';
-import type { Naber, VNode } from './types/base.types'; // 적절한 경로로 수정
+import { setCurrentlyRenderingNaber } from '@src/core/niber';
+import type { Naber, VNode } from '@src/shared/types';
 
 /**
  * 함수형 컴포넌트 렌더링 시 현재 작업 중인 Naber를 설정하고 해제하는 스코프를 제공합니다.

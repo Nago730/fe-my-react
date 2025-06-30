@@ -1,6 +1,6 @@
-import { activateComponentScope } from '@src/renderUtils';
-import type { Naber, VNode } from '@src/types/base.types';
-import { setRootNaber } from './naberStore';
+import { setRootNaber } from '@src/core/niber';
+import { activateComponentScope } from '@src/core/niber/utils';
+import type { Naber, VNode } from '@src/shared/types';
 
 /**
  * 단일 VNode를 기반으로 Naber 객체를 생성합니다.

@@ -1,15 +1,10 @@
-import { activateComponentScope } from '@src/renderUtils';
-import { getRootNaber } from '@src/runtime/naberStore';
-import { diff } from '../runtime/diff';
-import { getNaberTree } from '../runtime/naber';
-import type {
-	FragmentVNode,
-	Naber,
-	TextVNode,
-	VNode,
-} from '../types/base.types';
-import { FRAGMENT, TEXT_ELEMENT } from './constants';
-import { applyProps, applyRef } from './domEffects';
+import { getNaberTree } from '@src/core/niber';
+import { getRootNaber } from '@src/core/niber/naberStore';
+import { activateComponentScope } from '@src/core/niber/utils';
+import { diff } from '@src/core/reconciler';
+import { applyProps, applyRef } from '@src/dom/domEffects';
+import { FRAGMENT, TEXT_ELEMENT } from '@src/shared/constants';
+import type { FragmentVNode, Naber, TextVNode, VNode } from '@src/shared/types';
 
 export function createDom(naber: Naber, fragment: Node): void {
 	// Naber가 FunctionComponent 일 때, 자식을 재귀 (함수 컴포넌트 자체는 DOM을 생성하지 않음)

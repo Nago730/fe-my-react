@@ -1,4 +1,4 @@
-import type { FRAGMENT, TEXT_ELEMENT } from '../core/constants';
+import type { FRAGMENT, TEXT_ELEMENT } from '@src/shared/constants';
 
 // DOM 요소의 속성에 대한 기본 타입
 export type DomAttributes = {

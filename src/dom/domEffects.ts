@@ -1,4 +1,4 @@
-import type { MutableRefObject, Ref, VNodeProps } from '../types/base.types';
+import type { MutableRefObject, Ref, VNodeProps } from '@src/shared/types';
 
 export function applyRef(dom: Node, ref: Ref | undefined) {
 	if (typeof ref === 'function') {

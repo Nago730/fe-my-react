@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from '../../src/runtime/useState';
+import { useState } from '@my-react/core/hooks/useState';
 
 function App() {
 	const [count, setCount] = useState(0);

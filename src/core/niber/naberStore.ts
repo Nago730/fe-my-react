@@ -1,4 +1,4 @@
-import type { Naber } from '@src/types/base.types';
+import type { Naber } from '@src/shared/types';
 
 let rootNaber: Naber | null;
 let currentlyRenderingNaber: Naber | null;

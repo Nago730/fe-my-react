@@ -1,6 +1,9 @@
-import { activateComponentScope } from '@src/renderUtils';
-import type { Naber, VNode } from '../../types/base.types';
-import { buildNaberTree, createNaber } from '../naber';
+import {
+	activateComponentScope,
+	buildNaberTree,
+	createNaber,
+} from '@src/core/niber';
+import type { Naber, VNode } from '@src/shared/types';
 import type { NaberMap } from './diff.types';
 
 /**

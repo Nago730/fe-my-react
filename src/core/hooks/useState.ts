@@ -1,6 +1,6 @@
-import { updateComponent } from '../core';
-import type { Naber } from '../types/base.types';
-import { getCurrentWorkingNaber } from './naberStore';
+import { getCurrentWorkingNaber } from '@src/core/niber/naberStore';
+import { updateComponent } from '@src/core/render';
+import type { Naber } from '@src/shared/types';
 
 export function useState<T>(initialValue: T): [T, (newValue: T) => void] {
 	const currentWorkingNaber: Naber | null = getCurrentWorkingNaber();

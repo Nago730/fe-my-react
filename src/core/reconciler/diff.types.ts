@@ -1,4 +1,4 @@
-import type { Naber } from '@src/types/base.types';
+import type { Naber } from '@src/shared/types';
 
 export type NaberKey = string | number;
 
