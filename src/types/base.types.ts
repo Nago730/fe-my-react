@@ -38,7 +38,6 @@ export interface FragmentVNode extends VNode {
 }
 
 export interface Naber {
-	tag: string;
 	type: string | Function | symbol;
 	props: VNodeProps;
 	children: Naber[];
