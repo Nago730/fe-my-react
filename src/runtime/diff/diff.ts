@@ -40,24 +40,15 @@ export function diff(prevNabers: Naber[], nextVNodes: VNode[]): Naber[] {
 		// 요소의 삽입/삭제/이동 시 비효율적인 재조정이 발생할 수 있습니다.
 		const targetPrev = matchedByKey || prev;
 
-		if (
-			targetPrev &&
-			isFunctionType(next.type) &&
-			targetPrev.type === next.type
-		) {
-			const newNextNaber: Naber = FunctionComponentDiff(targetPrev, next);
-			newNextNabers[i] = newNextNaber;
-		} else if (
-			targetPrev &&
-			!isFunctionType(next.type) &&
-			targetPrev.type === next.type
-		) {
-			const newNextNaber: Naber = HostElementDiff(targetPrev, next);
-			newNextNabers[i] = newNextNaber;
-		} else {
-			const newNextNaber: Naber = createNewNaberTree(next);
-			newNextNabers[i] = newNextNaber;
-		}
+		let newNextNaber: Naber;
+
+		if (isSameFunctionComponentType(targetPrev, next))
+			newNextNaber = FunctionComponentDiff(targetPrev, next);
+		else if (isSameHostElementType(targetPrev, next))
+			newNextNaber = HostElementDiff(targetPrev, next);
+		else newNextNaber = createNewNaberTree(next);
+
+		newNextNabers[i] = newNextNaber;
 	}
 
 	return newNextNabers;
@@ -186,4 +177,35 @@ function buildPrevNaberMap(prevNabers: Naber[]): NaberMap {
  */
 function isFunctionType(type: any): boolean {
 	return typeof type === 'function';
+}
+
+/**
+ * 이전 Naber와 현재 Naber가 동일한 함수 컴포넌트 타입인지 확인합니다.
+ * @param targetPrev 이전 Naber (선택적)
+ * @param next 현재 Naber
+ * @returns 두 Naber가 동일한 함수 컴포넌트 타입이면 true, 그렇지 않으면 false.
+ */
+function isSameFunctionComponentType(
+	targetPrev: Naber | null,
+	next: VNode,
+): boolean {
+	return (
+		targetPrev !== null &&
+		isFunctionType(next.type) &&
+		targetPrev.type === next.type
+	);
+}
+
+/**
+ * 이전 Naber와 현재 Naber가 동일한 호스트 엘리먼트 타입인지 확인합니다.
+ * @param targetPrev 이전 Naber (선택적)
+ * @param next 현재 Naber
+ * @returns 두 Naber가 동일한 호스트 엘리먼트 타입이면 true, 그렇지 않으면 false.
+ */
+function isSameHostElementType(targetPrev: Naber | null, next: VNode): boolean {
+	return (
+		targetPrev !== null &&
+		!isFunctionType(next.type) &&
+		targetPrev.type === next.type
+	);
 }
