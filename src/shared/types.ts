@@ -37,10 +37,10 @@ export interface FragmentVNode extends VNode {
 	props: {};
 }
 
-export interface Naber {
+export interface Niber {
 	type: string | Function | symbol;
 	props: VNodeProps;
-	children: Naber[];
+	children: Niber[];
 	key: string | null;
 	ref: Ref | null;
 	memoizedState: any[];

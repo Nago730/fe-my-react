@@ -1,5 +1,5 @@
-import type { Naber } from '@src/shared/types';
+import type { Niber } from '@src/shared/types';
 
-export type NaberKey = string | number;
+export type NiberKey = string | number;
 
-export type NaberMap = Map<NaberKey, Naber>;
+export type NiberMap = Map<NiberKey, Niber>;

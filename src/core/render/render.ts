@@ -1,22 +1,22 @@
 import {
 	activateComponentScope,
-	getNaberTree,
-	getRootNaber,
+	getNiberTree,
+	getRootNiber,
 } from '@src/core/niber';
 import { diff } from '@src/core/reconciler';
 import { applyProps, applyRef } from '@src/dom/domEffects';
 import { FRAGMENT, TEXT_ELEMENT } from '@src/shared/constants';
-import type { FragmentVNode, Naber, TextVNode, VNode } from '@src/shared/types';
+import type { FragmentVNode, Niber, TextVNode, VNode } from '@src/shared/types';
 
-export function createDom(naber: Naber, fragment: Node): void {
-	// Naber가 FunctionComponent 일 때, 자식을 재귀 (함수 컴포넌트 자체는 DOM을 생성하지 않음)
-	if (typeof naber.type === 'function') {
-		for (const child of naber.children) createDom(child, fragment);
+export function createDom(niber: Niber, fragment: Node): void {
+	// Niber가 FunctionComponent 일 때, 자식을 재귀 (함수 컴포넌트 자체는 DOM을 생성하지 않음)
+	if (typeof niber.type === 'function') {
+		for (const child of niber.children) createDom(child, fragment);
 		return;
 	}
 
-	// Naber가 HostElement 일 때
-	const { type, props, children, ref } = naber;
+	// Niber가 HostElement 일 때
+	const { type, props, children, ref } = niber;
 
 	let dom: Node;
 
@@ -45,31 +45,31 @@ export function render(
 ): void {
 	rootElement = container;
 
-	const naber = getNaberTree(vnode);
+	const niber = getNiberTree(vnode);
 
-	commit(naber, container);
+	commit(niber, container);
 }
 
-export function updateComponent(currentWorkingNaber: Naber) {
-	const { props, children: prevNabers } = currentWorkingNaber;
+export function updateComponent(currentWorkingNiber: Niber) {
+	const { props, children: prevNibers } = currentWorkingNiber;
 
-	const nextVNode: VNode = activateComponentScope(currentWorkingNaber, props);
+	const nextVNode: VNode = activateComponentScope(currentWorkingNiber, props);
 
-	const newNextNabers: Naber[] = diff(prevNabers, [nextVNode]);
+	const newNextNibers: Niber[] = diff(prevNibers, [nextVNode]);
 
-	currentWorkingNaber.children = newNextNabers;
+	currentWorkingNiber.children = newNextNibers;
 
-	const rootNaber = getRootNaber();
+	const rootNiber = getRootNiber();
 
-	if (!rootNaber) return console.error('rootNaber가 존재하지 않음');
+	if (!rootNiber) return console.error('rootNiber가 존재하지 않음');
 
-	commit(rootNaber, rootElement);
+	commit(rootNiber, rootElement);
 }
 
-function commit(naber: Naber, container: Element): void {
+function commit(niber: Niber, container: Element): void {
 	const fragment = document.createDocumentFragment();
 
-	createDom(naber, fragment);
+	createDom(niber, fragment);
 
 	container.innerHTML = '';
 	container.appendChild(fragment);
