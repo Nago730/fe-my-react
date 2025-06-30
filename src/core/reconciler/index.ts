@@ -1,2 +1,2 @@
-export * from './diff';
-export * from './diff.types';
+export * from './reconciler';
+export * from './types';
