@@ -1,6 +1,8 @@
-import { getNaberTree } from '@src/core/niber';
-import { getRootNaber } from '@src/core/niber/naberStore';
-import { activateComponentScope } from '@src/core/niber/utils';
+import {
+	activateComponentScope,
+	getNaberTree,
+	getRootNaber,
+} from '@src/core/niber';
 import { diff } from '@src/core/reconciler';
 import { applyProps, applyRef } from '@src/dom/domEffects';
 import { FRAGMENT, TEXT_ELEMENT } from '@src/shared/constants';
