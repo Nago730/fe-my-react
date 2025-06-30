@@ -26,30 +26,32 @@ export function diff(prevNabers: Naber[], nextVNodes: VNode[]): Naber[] {
 	const prevMap = buildPrevNaberMap(prevNabers);
 	// JSX에서 조건부 렌더링 시 값이 false인 경우가 생김. 필터링 로직으로 구분
 	const filteredNextVNodes = nextVNodes.filter((v) => typeof v === 'object');
-	const newNextNabers: Naber[] = [];
 
-	for (let i = 0; i < filteredNextVNodes.length; i++) {
-		const prev: Naber | undefined = prevNabers[i];
-		const next: VNode = filteredNextVNodes[i];
-		const matchedByKey: Naber | null | undefined = next?.key
-			? prevMap.get(next.key)
-			: null;
+	const newNextNabers: Naber[] = filteredNextVNodes.reduce(
+		(newNextNabers: Naber[], next: VNode, i) => {
+			const prev: Naber | undefined = prevNabers[i];
+			const matchedByKey: Naber | null | undefined = next?.key
+				? prevMap.get(next.key)
+				: null;
 
-		// 'key'가 있으면 해당 Naber를 우선적으로 사용하고, 없으면 현재 인덱스의 이전 Naber를 사용합니다.
-		// 'key'가 없는 요소의 경우, 배열 인덱스 기반으로 비교가 수행되며,
-		// 요소의 삽입/삭제/이동 시 비효율적인 재조정이 발생할 수 있습니다.
-		const targetPrev = matchedByKey || prev;
+			// 'key'가 있으면 해당 Naber를 우선적으로 사용하고, 없으면 현재 인덱스의 이전 Naber를 사용합니다.
+			// 'key'가 없는 요소의 경우, 배열 인덱스 기반으로 비교가 수행되며,
+			// 요소의 삽입/삭제/이동 시 비효율적인 재조정이 발생할 수 있습니다.
+			const targetPrev = matchedByKey || prev;
 
-		let newNextNaber: Naber;
+			let newNextNaber: Naber;
 
-		if (isSameFunctionComponentType(targetPrev, next))
-			newNextNaber = FunctionComponentDiff(targetPrev, next);
-		else if (isSameHostElementType(targetPrev, next))
-			newNextNaber = HostElementDiff(targetPrev, next);
-		else newNextNaber = createNewNaberTree(next);
+			if (isSameFunctionComponentType(targetPrev, next))
+				newNextNaber = FunctionComponentDiff(targetPrev, next);
+			else if (isSameHostElementType(targetPrev, next))
+				newNextNaber = HostElementDiff(targetPrev, next);
+			else newNextNaber = createNewNaberTree(next);
 
-		newNextNabers[i] = newNextNaber;
-	}
+			newNextNabers[i] = newNextNaber;
+			return newNextNabers;
+		},
+		[],
+	);
 
 	return newNextNabers;
 }
